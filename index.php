@@ -408,6 +408,7 @@
                                 // 2. Viết câu lệnh truy vấn để lấy ra dữ liệu mong muốn (TIN TỨC đã lưu trong CSDL)
                                 $sql ="SELECT loaisanpham.tenloaisanpham, loaisanpham.anhloai, COUNT(sanpham.masanpham) as 'total' from loaisanpham left JOIN sanpham 
                                 on loaisanpham.maloaisanpham = sanpham.maloaisanpham GROUP by loaisanpham.maloaisanpham"
+                                
                                     ;
 
                                 // 3. Thực thi câu lệnh lấy dữ liệu mong muốn
@@ -471,7 +472,7 @@
 
                                             $sql = "
                                                 select * from sanpham left join khuyenmai on sanpham.makhuyenmai = khuyenmai.makhuyenmai
-                                                where maloaisanpham = 7
+                                                where maloaisanpham = 7 and sanpham.soluong !=0
                                             ";
 
                                             $san_pham = mysqli_query($ket_noi, $sql);

@@ -11,6 +11,39 @@
         ";
     }
 ;?>
+<?php 
+    // Kt xem bạn có quyền truy cập trang này hay không thông qua biên s$_session['da_dang_nhap']=1-->đc phép truy cập và ngược lại
+    
+        if(!isset($_SESSION['da_dang_nhap']))   
+        {
+           echo "
+                <script type='text/javascript'>
+                    window.alert('Bạn chưa đăng nhập hệ thống!!!');
+                    window.location.href='dangnhap.php';
+                </script>
+            ";
+        }
+        else{
+            
+            if(isset($_SESSION['role'])==1){
+               //ngược lại nếú đã đnhạp thì gán
+                  $phan_quyen=$_SESSION['role'];
+                 
+
+                //Kiểm tra có pải là admin hay không
+                if($phan_quyen=='0'){
+                    //Nếu không phải admin thì thông báo
+                    echo "Bạn không được quyền truy cập vào trang quản trị nhân viên này <br>";
+                    echo "<a href='index.php'>Click để về lại trang chủ</a>";
+                    exit();
+                }
+
+            }
+
+        }
+        
+ ;?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -143,6 +176,7 @@
                                             <th>Tên người dùng</th>
                                             <th>Email</th>
                                             <th>Mậtt Khẩu</th>
+                                            <th>Phân Quyền</th>
                                             <th>Xóa</th>
                                         </tr>
                                     </thead>
@@ -152,6 +186,7 @@
                                             <th>Tên người dùng</th>
                                             <th>Email</th>
                                             <th>Mậtt Khẩu</th>
+                                            <th>Phân Quyền</th>
                                             <th>Xóa</th>
                                         </tr>
                                     </tfoot>
@@ -178,6 +213,12 @@
                                             <td><?php echo $row["tennguoidung"];?></td>
                                             <td><?php echo $row["emailnguoidung"];?></td>
                                             <td><?php echo $row["matkhau"];?></td>
+                                            <td>
+                                                    <select name="select-status" class="select-status" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+                                                        <option value="nguoidungsuatrangthai.php?id=<?php echo $row['manguoidung'] ?>&status=1" <?php if($row["role"]==1) echo "selected"; ?>>Đã phân quyền</option>
+                                                        <option value="nguoidungsuatrangthai.php?id=<?php echo $row['manguoidung'] ?>&status=0" <?php if($row["role"]==0) echo "selected"; ?>>Chưa phân quyền</option>
+                                                    </select>
+                                                </td>
                                             <td><a href="nguoidungxoa.php?id=<?php echo $row["manguoidung"];?>">Xóa</a></td>
                                         </tr>
                                     <?php

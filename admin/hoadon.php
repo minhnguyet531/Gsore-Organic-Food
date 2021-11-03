@@ -146,6 +146,7 @@
                                             <th>Tổng số lượng sản phẩm</th>
                                             <th>Tổng giá trị hóa đơn</th>
                                             <th>Xem chi tiết</th>
+                                            <th>Trạng thái</th>
                                             <th>Xóa</th>
                                         </tr>
                                     </thead>
@@ -158,6 +159,7 @@
                                             <th>Tổng số lượng sản phẩm</th>
                                             <th>Tổng giá trị hóa đơn</th>
                                             <th>Xem chi tiết</th>
+                                            <th>Trạng thái</th>
                                             <th>Xóa</th>
                                         </tr>
                                     </tfoot>
@@ -188,6 +190,12 @@
                                             <td><?php echo $row["tongsoluong"];?></td>
                                             <td><?php echo $row["tongtien"];?></td>
                                             <td><a href="hoadonxemchitiet.php?id=<?php echo $row["mahoadon"];?>">Xem chi tiết</a></td>
+                                            <td>
+                                                <select name="select-status" class="select-status" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+                                                    <option value="hoa_don_sua_trang_thai.php?id=<?php echo $row['mahoadon'] ?>&status=1" <?php if($row["trangthai"]==1) echo "selected"; ?>>Đã xử lý</option>
+                                                    <option value="hoa_don_sua_trang_thai.php?id=<?php echo $row['mahoadon'] ?>&status=0" <?php if($row["trangthai"]==0) echo "selected"; ?>>Chưa xử lý</option>
+                                                </select>
+                                            </td>
                                             <td><a href="hoadonxoa.php?id=<?php echo $row["mahoadon"];?>">Xóa</a></td>
                                         </tr>
                                     <?php
